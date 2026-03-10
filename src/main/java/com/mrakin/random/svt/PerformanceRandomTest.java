@@ -1,7 +1,10 @@
-package com.mrakin.random;
+package com.mrakin.random.svt;
 
 import java.util.concurrent.TimeUnit;
 
+import com.mrakin.random.AtomicRandom;
+import com.mrakin.random.StripedRandom;
+import com.mrakin.random.ThreadLocalRandom;
 import org.openjdk.jmh.annotations.*;
 
 @BenchmarkMode(Mode.Throughput)
@@ -10,7 +13,7 @@ import org.openjdk.jmh.annotations.*;
 public class PerformanceRandomTest {
 
     private final AtomicRandom atomic = new AtomicRandom(42L);
-    private final StripedRandom striped = new StripedRandom(64, 42L);
+    private final StripedRandom striped = new StripedRandom(16, 42L);
     private final ThreadLocalRandom threadLocalRandom = new ThreadLocalRandom(42);
 
     @Benchmark
