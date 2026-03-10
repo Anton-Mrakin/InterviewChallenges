@@ -1,0 +1,5 @@
+Benchmark                                    Mode  Cnt           Score           Error  Units
+PerformanceRandomTest.atomicRandom          thrpt   25    48207368,009 ±   5425529,930  ops/s
+PerformanceRandomTest.jdkThreadLocalRandom  thrpt   25  1830479516,707 ± 522230610,440  ops/s
+PerformanceRandomTest.stripedRandom         thrpt   25    49392058,537 ±  10145942,852  ops/s
+PerformanceRandomTest.threadLocalRandom     thrpt   25  1326618662,098 ±  28327788,640  ops/s

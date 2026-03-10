@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CuncurrencyRandomTest {
     @Test
-    void worksUnderConcurrency() throws Exception {
+    void worksUnderConcurrency() {
         StripedRandom random = new StripedRandom(64, 42L);
         int threads = 32;
         int perThread = 100_000;

@@ -17,9 +17,11 @@ public class StripedRandom {
     }
 
     public long nextLong() {
+        long threadId = Thread.currentThread().threadId();
         int index = Math.floorMod(
-                Long.hashCode(Thread.currentThread().threadId())
+                Long.hashCode(threadId)
                 , stripes.length);
+//        int index = (int) (threadId % stripes.length);
         return stripes[index].nextLong();
     }
 }
