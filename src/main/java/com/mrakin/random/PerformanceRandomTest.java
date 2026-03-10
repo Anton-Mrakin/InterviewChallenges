@@ -2,7 +2,6 @@ package com.mrakin.random;
 
 import java.util.concurrent.TimeUnit;
 
-import org.junit.jupiter.api.Test;
 import org.openjdk.jmh.annotations.*;
 
 @BenchmarkMode(Mode.Throughput)
