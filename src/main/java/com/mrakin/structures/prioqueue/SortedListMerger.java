@@ -1,4 +1,4 @@
-package com.mrakin.structures;
+package com.mrakin.structures.prioqueue;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,7 +11,6 @@ public class SortedListMerger {
 
     List<Integer> mergeSortedLists(List<List<Integer>> lists) {
         PriorityQueue<Entry> pq = new PriorityQueue<>(Comparator.comparingInt(Entry::value));
-        List<Integer> result = new ArrayList<>();
         for (int i = 0; i < lists.size(); i++) {
             if (lists.get(i).isEmpty()) {
                 continue;
@@ -22,6 +21,8 @@ public class SortedListMerger {
                             , i
                             , 0));
         }
+
+        List<Integer> result = new ArrayList<>();
         while (!pq.isEmpty()) {
             Entry cur = pq.poll();
             result.add(cur.value());

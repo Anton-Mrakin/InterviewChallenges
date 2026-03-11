@@ -9,42 +9,36 @@ import java.util.concurrent.Future;
 
 public class Runners {
     public void simple() throws InterruptedException {
-        Thread t = new Thread(() -> {
-            System.out.println("Hello from thread");
-        });
+        Thread t = new Thread(() -> System.out.println("Hello from thread"));
         t.start();
         t.join();
     }
 
     public void executorService() {
-        ExecutorService executor = Executors.newFixedThreadPool(10);
-
-        try {
-            executor.submit(() -> {
-                System.out.println("running");
-            });
-        } finally {
-            executor.shutdown();
+        try (ExecutorService executor = Executors.newFixedThreadPool(10)) {
+            try {
+                executor.submit(() -> {
+                    System.out.println("running");
+                });
+            } finally {
+                executor.shutdown();
+            }
         }
     }
 
-    public void withResult() {
-        ExecutorService executor = Executors.newFixedThreadPool(4);
-
-        try {
-            Callable<Integer> task = () -> {
-                Thread.sleep(500);
-                return 42;
-            };
-
-            Future<Integer> future = executor.submit(task);
-
-            Integer result = future.get(); // блокируется, пока не готово
-            System.out.println(result);
-        } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
-        } finally {
-            executor.shutdown();
+    public void withResult() throws ExecutionException, InterruptedException {
+        try (ExecutorService executor = Executors.newFixedThreadPool(4)) {
+            try {
+                Callable<Integer> task = () -> {
+                    Thread.sleep(500);
+                    return 42;
+                };
+                Future<Integer> future = executor.submit(task);
+                Integer result = future.get(); // блокируется, пока не готово
+                System.out.println(result);
+            } finally {
+                executor.shutdown();
+            }
         }
     }
 
