@@ -8,30 +8,22 @@ public class MonotonicWindow {
         if (nums == null || nums.length == 0 || k <= 0) {
             return new int[0];
         }
-
         int n = nums.length;
-        int[] ans = new int[Math.max(0, n - k + 1)];
-        Deque<Integer> dq = new ArrayDeque<>(); // храним индексы
-
+        int[] result = new int[n - k + 1];
+        Deque<Integer> windowIndices = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
-            // 1. выкинуть элементы, которые вышли из окна
-            if (!dq.isEmpty() && dq.peekFirst() <= i - k) {
-                dq.pollFirst();
+            int windowStart = i - k + 1;
+            if (!windowIndices.isEmpty() && windowIndices.peekFirst() < windowStart) {
+                windowIndices.pollFirst();
             }
-
-            // 2. выкинуть с хвоста все меньшие элементы
-            while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) {
-                dq.pollLast();
+            while (!windowIndices.isEmpty() && nums[windowIndices.peekLast()] <= nums[i]) {
+                windowIndices.pollLast();
             }
-
-            // 3. добавить текущий индекс
-            dq.offerLast(i);
-
-            // 4. когда окно уже набралось, максимум в голове
+            windowIndices.offerLast(i);
             if (i >= k - 1) {
-                ans[i - k + 1] = nums[dq.peekFirst()];
+                result[i - k + 1] = nums[windowIndices.peekFirst()];
             }
         }
-        return ans;
+        return result;
     }
 }
