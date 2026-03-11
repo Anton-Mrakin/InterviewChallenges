@@ -1,7 +1,12 @@
 package com.mrakin.structures.dequeue;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.mrakin.structures.dequeue.TreeUtils.createTree;
 
@@ -9,47 +14,36 @@ class BFSTest {
 
     private final BFS bfs = new BFS();
 
-    @Test
-    void testEmptyTree() {
-        assertEquals(List.of(), bfs.bfs(null));
+    @ParameterizedTest(name = "tree={0}, expected={1}")
+    @CsvSource({
+            " , ''",
+            "'1', '1'",
+            "'1,2,3,4,5,6,7', '1,2,3,4,5,6,7'",
+            "'1,null,2,null,3', '1,2,3'",
+            "'1,2,3,null,4,5', '1,2,3,4,5'"
+    })
+    void testBFS(String treeStr, String expectedStr) {
+        TreeNode root = createTree(parseArray(treeStr));
+        assertEquals(parseList(expectedStr), bfs.bfs(root));
     }
 
-    @Test
-    void testSingleNode() {
-        TreeNode root = createTree(1);
-        assertEquals(List.of(1), bfs.bfs(root));
+    private Integer[] parseArray(String s) {
+        if (s == null || s.trim().isEmpty()) {
+            return new Integer[0];
+        }
+        return Arrays.stream(s.split(","))
+                .map(String::trim)
+                .map(val -> val.equals("null") ? null : Integer.parseInt(val))
+                .toArray(Integer[]::new);
     }
 
-    @Test
-    void testNormalTree() {
-        //      1
-        //    /   \
-        //   2     3
-        //  / \   / \
-        // 4   5 6   7
-        TreeNode root = createTree(1, 2, 3, 4, 5, 6, 7);
-        assertEquals(List.of(1, 2, 3, 4, 5, 6, 7), bfs.bfs(root));
-    }
-
-    @Test
-    void testUnbalancedTree() {
-        //   1
-        //    \
-        //     2
-        //      \
-        //       3
-        TreeNode root = createTree(1, null, 2, null, 3);
-        assertEquals(List.of(1, 2, 3), bfs.bfs(root));
-    }
-
-    @Test
-    void testPartialNodes() {
-        //      1
-        //    /   \
-        //   2     3
-        //    \   /
-        //     4 5
-        TreeNode root = createTree(1, 2, 3, null, 4, 5);
-        assertEquals(List.of(1, 2, 3, 4, 5), bfs.bfs(root));
+    private List<Integer> parseList(String s) {
+        if (s == null || s.trim().isEmpty()) {
+            return List.of();
+        }
+        return Arrays.stream(s.split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 }
