@@ -2,13 +2,6 @@ package com.mrakin.structures.two_pointer_array;
 import java.util.Arrays;
 
 public class RemoveDuplicates {
-    /**
-     * Удаляет дубликаты из отсортированного массива целых чисел на месте.
-     * Возвращает новый массив, содержащий только уникальные элементы.
-     *
-     * @param nums отсортированный массив чисел
-     * @return массив уникальных элементов
-     */
     public int[] removeDuplicates(int[] nums) {
         if (nums == null || nums.length == 0) {
             return new int[0];
