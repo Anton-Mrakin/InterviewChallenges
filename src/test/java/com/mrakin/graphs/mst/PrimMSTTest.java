@@ -1,6 +1,5 @@
-package com.mrakin.graphs.union.find;
+package com.mrakin.graphs.mst;
 
-import com.mrakin.graphs.mst.PrimMST;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
