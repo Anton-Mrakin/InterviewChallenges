@@ -1,4 +1,6 @@
-package com.mrakin.graphs.union.find;
+package com.mrakin.graphs.mst;
+
+import com.mrakin.graphs.union.find.UnionFind;
 
 import java.util.ArrayList;
 import java.util.Comparator;

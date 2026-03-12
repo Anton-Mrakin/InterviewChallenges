@@ -1,10 +1,10 @@
 package com.mrakin.graphs.union.find;
 
+import com.mrakin.graphs.mst.KruskalMST;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
