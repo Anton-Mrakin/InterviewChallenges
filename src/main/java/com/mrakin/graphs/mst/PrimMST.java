@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class PrimMST {
-    record Edge(int to, int weight) {
+    public record Edge(int to, int weight) {
     }
 
-    record State(int from, int to, int weight) {
+    public record State(int from, int to, int weight) {
     }
 
-    static List<State> prim(int n, List<List<Edge>> graph) {
+    public static List<State> prim(int n, List<List<Edge>> graph) {
         boolean[] inMst = new boolean[n];
         List<State> mst = new ArrayList<>();
         PriorityQueue<State> pq =
@@ -40,7 +40,7 @@ public class PrimMST {
         return mst;
     }
 
-    static void addUndirectedEdge(List<List<Edge>> graph, int u, int v, int w) {
+    public static void addUndirectedEdge(List<List<Edge>> graph, int u, int v, int w) {
         graph.get(u).add(new Edge(v, w));
         graph.get(v).add(new Edge(u, w));
     }
